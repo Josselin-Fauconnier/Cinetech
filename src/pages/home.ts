@@ -23,14 +23,14 @@ async function afficherAccueil(): Promise<void> {
 
     main.innerHTML = `
         <section class="section-films">
-            <h2 class="section-films__titre">Les films populaires</h2>
+            <h2 class="section-films_titre">Les films populaires</h2>
             <div class="grille">
                 ${films.map(film => creerCarteFilm(film)).join('')}
             </div>
         </section>
 
         <section class="section-films">
-            <h2 class="section-films__titre">Les séries documentaires populaires</h2>
+            <h2 class="section-films_titre">Les séries documentaires populaires</h2>
             <div class="grille">
                 ${series.map(serie => creerCarteSerie(serie)).join('')}
             </div>

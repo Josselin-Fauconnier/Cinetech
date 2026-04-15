@@ -59,44 +59,44 @@ header {
     gap: 16px;
 }
 
-.nav__logo {
+.nav_logo {
     display: flex;
     align-items: center;
     gap: 10px;
     text-decoration: none;
 }
 
-.nav__logo-texte {
+.nav_logo-texte {
     font-size: 1.3rem;
     font-weight: bold;
     color: var(--accent);
 }
 
-.nav__liens {
+.nav_liens {
     display: flex;
     list-style: none;
     gap: 25px;
 }
 
-.nav__liens a {
+.nav_liens a {
     color: var(--texte-principal);
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.2s;
 }
 
-.nav__liens a:hover {
+.nav_liens a:hover {
     color: var(--accent);
 }
 
-.nav__recherche {
+.nav_recherche {
     display: flex;
     align-items: center;
     position: relative;
     gap: 0;
 }
 
-.nav__recherche-input {
+.nav_recherche-input {
     background-color: var(--fond-principal);
     color: var(--texte-principal);
     border: 1px solid var(--texte-secondaire);
@@ -107,11 +107,11 @@ header {
     outline: none;
 }
 
-.nav__recherche-input:focus {
+.nav_recherche-input:focus {
     border-color: var(--accent);
 }
 
-.nav__recherche-btn {
+.nav_recherche-btn {
     background-color: var(--accent);
     border: none;
     border-radius: 0 4px 4px 0;
@@ -122,11 +122,11 @@ header {
     color: var(--fond-principal);
 }
 
-.nav__recherche-btn:hover {
+.nav_recherche-btn:hover {
     background-color: var(--accent-hover);
 }
 
-.nav__autocomplete {
+.nav_autocomplete {
     position: absolute;
     top: 100%;
     left: 0;
@@ -139,7 +139,7 @@ header {
     display: none;
 }
 
-.nav__burger {
+.nav_burger {
     display: none;
     flex-direction: column;
     gap: 5px;
@@ -149,7 +149,7 @@ header {
     padding: 5px;
 }
 
-.nav__burger span {
+.nav_burger span {
     display: block;
     width: 24px;
     height: 2px;
@@ -167,7 +167,7 @@ header {
     text-align: center;
 }
 
-.section-films__titre {
+.section-films_titre {
     display: inline-block;
     background-color: #8b0000;
     color: var(--texte-principal);
@@ -226,7 +226,7 @@ header {
     display: block;
 }
 
-.carte__placeholder {
+.carte_placeholder {
     width: 100%;
     aspect-ratio: 2/3;
     background-color: var(--fond-secondaire);
@@ -238,11 +238,11 @@ header {
 }
 
 
-.carte__infos {
+.carte_infos {
     padding: 10px;
 }
 
-.carte__titre {
+.carte_titre {
     font-size: 0.9rem;
     margin-bottom: 6px;
     white-space: nowrap;
@@ -250,7 +250,7 @@ header {
     text-overflow: ellipsis;
 }
 
-.carte__note {
+.carte_note {
     font-size: 0.85rem;
     color: var(--accent);
     display: flex;
@@ -259,12 +259,48 @@ header {
     margin-bottom: 2px;
 }
 
-.carte__date {
+.carte_date {
     font-size: 0.8rem;
     color: var(--texte-secondaire);
 }
 
 
+/* ───── PAGINATION ───── */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 40px;
+    padding: 16px;
+}
+
+.pagination_btn {
+    background-color: var(--accent);
+    color: var(--fond-principal);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.pagination_btn:hover:not(:disabled) {
+    background-color: var(--accent-hover);
+}
+
+.pagination_btn:disabled {
+    background-color: var(--texte-secondaire);
+    cursor: not-allowed;
+}
+
+.pagination_info {
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+}
 
 
 
@@ -275,37 +311,37 @@ footer {
     margin-top: 48px;
 }
 
-.footer__contenu {
+.footer_contenu {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
 }
 
-.footer__liens {
+.footer_liens {
     display: flex;
     list-style: none;
     gap: 25px;
     justify-content: center;
 }
 
-.footer__liens a {
+.footer_liens a {
     color: var(--texte-secondaire);
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s;
 }
 
-.footer__liens a:hover {
+.footer_liens a:hover {
     color: var(--accent);
 }
 
 @media (max-width: 768px) {
-    .nav__burger {
+    .nav_burger {
         display: flex;
     }
 
-    .nav__liens {
+    .nav_liens {
         display: none;
         flex-direction: column;
         position: absolute;
@@ -317,11 +353,11 @@ footer {
         gap: 16px;
     }
 
-    .nav__liens--ouvert {
+    .nav_liens--ouvert {
         display: flex;
     }
 
-    .nav__recherche-input {
+    .nav_recherche-input {
         width: 140px;
     }
 
@@ -338,7 +374,7 @@ footer {
         scroll-snap-align: start;
     }
 
-    .footer__liens {
+    .footer_liens {
         flex-direction: column;
         align-items: center;
         gap: 12px;

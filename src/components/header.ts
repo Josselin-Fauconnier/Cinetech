@@ -4,23 +4,23 @@ export function affichageHeader(): void {
 
     header.innerHTML = `
         <nav class="nav">
-            <a href="./" class="nav__logo" aria-label="Accueil">
+            <a href="./" class="nav_logo" aria-label="Accueil">
                 <img src="./assets/logo.svg" alt="" width="40" height="40">
-                <span class="nav__logo-texte">Cinetech</span>
+                <span class="nav_logo-texte">Cinetech</span>
             </a>
 
-            <ul class="nav__liens" id="nav-liens">
+            <ul class="nav_liens" id="nav-liens">
                 <li><a href="./">Accueil</a></li>
                 <li><a href="./films.html">Films</a></li>
                 <li><a href="./series.html">Séries</a></li>
                 <li><a href="./favoris.html">Favoris</a></li>
             </ul>
 
-            <form class="nav__recherche" role="search" id="form-recherche">
+            <form class="nav_recherche" role="search" id="form-recherche">
                 <input
                     type="search"
                     id="recherche"
-                    class="nav__recherche-input"
+                    class="nav_recherche-input"
                     placeholder="Rechercher un film ou une série..."
                     autocomplete="on"
                     aria-label="Rechercher un film ou une série"
@@ -28,10 +28,10 @@ export function affichageHeader(): void {
                 <button type="submit" classe="nav_recherche_btn" aria-label="faire une recherche">
                 <img src="./assets/loupe.svg" width="20" height="20">
                 </button>
-                <ul class="nav__autocomplete" id="autocomplete" role="listbox" aria-label="Suggestions"></ul>
+                <ul class="nav_autocomplete" id="autocomplete" role="listbox" aria-label="Suggestions"></ul>
             </form>
 
-            <button class="nav__burger" id="burger" aria-expanded="false" aria-controls="nav-liens" aria-label="Ouvrir le menu">
+            <button class="nav_burger" id="burger" aria-expanded="false" aria-controls="nav-liens" aria-label="Ouvrir le menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -40,10 +40,10 @@ export function affichageHeader(): void {
     `
 
     const burger = document.getElementById('burger')
-    const navLiens = header.querySelector('.nav__liens')
+    const navLiens = header.querySelector('.nav_liens')
 
     burger?.addEventListener('click', () => {
-        const ouvert = navLiens?.classList.toggle('nav__liens--ouvert')
+        const ouvert = navLiens?.classList.toggle('nav_liens--ouvert')
         burger.setAttribute('aria-expanded', ouvert ? 'true' : 'false')
     })
 }
