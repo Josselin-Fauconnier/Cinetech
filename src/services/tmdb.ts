@@ -19,6 +19,10 @@ export async function getFilmsPopulaires(): Promise<any> {
     return fetchTMDB('/movie/popular?language=fr-FR&page=1')
 }
 
+
+
+
+
 export async function getSeriesPopulaires(): Promise<any> {
     return fetchTMDB('/tv/popular?language=fr-FR&page=1')
 }

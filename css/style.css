@@ -75,7 +75,7 @@ header {
 .nav__liens {
     display: flex;
     list-style: none;
-    gap: 24px;
+    gap: 25px;
 }
 
 .nav__liens a {
@@ -146,7 +146,7 @@ header {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 5px;
 }
 
 .nav__burger span {
@@ -156,6 +156,116 @@ header {
     background-color: var(--texte-principal);
     border-radius: 2px;
 }
+
+
+/* ───── PAGE ACCUEIL ───── */
+
+.section-films {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 25px;
+    text-align: center;
+}
+
+.section-films__titre {
+    display: inline-block;
+    background-color: #8b0000;
+    color: var(--texte-principal);
+    padding: 10px 25px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+
+/* ───── GRILLE ───── */
+
+.grille {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 20px;
+}
+
+/* ───── CARTE FILM ───── */
+
+.carte {
+    background-color: var(--fond-secondaire);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+
+.carte:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.carte::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(80, 0, 120, 0.35);
+    transition: opacity 0.3s;
+}
+
+.carte:hover::after {
+    opacity: 0;
+}
+
+.carte a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.carte img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+}
+
+.carte__placeholder {
+    width: 100%;
+    aspect-ratio: 2/3;
+    background-color: var(--fond-secondaire);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texte-secondaire);
+    font-size: 0.85rem;
+}
+
+
+.carte__infos {
+    padding: 10px;
+}
+
+.carte__titre {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carte__note {
+    font-size: 0.85rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 2px;
+}
+
+.carte__date {
+    font-size: 0.8rem;
+    color: var(--texte-secondaire);
+}
+
+
+
 
 
 
@@ -175,7 +285,7 @@ footer {
 .footer__liens {
     display: flex;
     list-style: none;
-    gap: 24px;
+    gap: 25px;
     justify-content: center;
 }
 
@@ -213,6 +323,17 @@ footer {
 
     .nav__recherche-input {
         width: 140px;
+    }
+
+    .grille {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
+    }
+
+    .footer__liens {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
     }
 }
 
