@@ -326,8 +326,16 @@ footer {
     }
 
     .grille {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        gap: 12px;
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding-bottom: 15px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .carte {
+        min-width: 130px;
+        scroll-snap-align: start;
     }
 
     .footer__liens {
