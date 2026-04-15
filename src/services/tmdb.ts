@@ -29,3 +29,8 @@ export async function getSeriesDocumentairePopulaires(): Promise<any> {
 export async function getFilmsPage(page: number): Promise <any>{
     return fetchTMDB(`/movie/popular?language=fr-FR&page=${page}`)
 }
+
+export async function getSerieDocumentairePage(page: number): Promise<any> {
+    return fetchTMDB(`/discover/tv?language=fr-FR&page=${page}&with_genres=99&sort_by=popularity.desc`)
+}
+

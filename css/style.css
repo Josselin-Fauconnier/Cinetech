@@ -7,19 +7,37 @@
 }
 
 :root {
+    --fond-principal: #f5f5f0;
+    --fond-secondaire: #e2e2da;
+    --texte-principal: #1a1a1a;
+    --texte-secondaire: #555555;
+    --accent: #b8900a;
+    --accent-hover: #e8b400;
+    --erreur: #c0392b;
+}
+
+body.sombre {
     --fond-principal: #0f0f0f;
     --fond-secondaire: #1c1c1c;
     --texte-principal: #f0f0f0;
     --texte-secondaire: #b0b0b0;
     --accent: #e8b400;
     --accent-hover: #ffd700;
-    --erreur: #c0392b;
 }
-
 
 body {
     background-color: var(--fond-principal);
     color: var(--texte-principal);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav_theme {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
 }
 
 .skip-links {
