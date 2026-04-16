@@ -1,7 +1,8 @@
 import { affichageHeader } from '../components/header.js'
 import { affichageFooter } from '../components/footer.js'
-import { getSerieDetail, getSerieCredits, getSeriesSimilaires } from '../services/tmdb.js'
+import { getSerieDetail, getSerieCredits, getSeriesSimilaires, getCommentairesSerie } from '../services/tmdb.js'
 import { ajouterFavori, supprimerFavori, estFavori } from '../utils/favoris.js'
+import { getCommentaires, ajouterCommentaire } from '../utils/commentaires.js'
 import { TMDB_IMG_URL } from '../services/config.js'
 
 affichageHeader()
@@ -13,10 +14,11 @@ async function afficherDetailSerie(): Promise<void> {
 
     if (!id) return
 
-    const [serie, credits, similaires] = await Promise.all([
+    const [serie, credits, similaires, commentairesTMDB] = await Promise.all([
         getSerieDetail(Number(id)),
         getSerieCredits(Number(id)),
-        getSeriesSimilaires(Number(id))
+        getSeriesSimilaires(Number(id)),
+        getCommentairesSerie(Number(id))
     ])
 
     const acteurs = credits.cast.slice(0, 10)
@@ -91,8 +93,51 @@ async function afficherDetailSerie(): Promise<void> {
                 </div>
             </div>
             ` : ''}
+
+            <div class="commentaires">
+                <h2 class="detail_acteurs-titre">Commentaires</h2>
+
+                <form class="commentaires_form" id="form-commentaire">
+                    <input type="text" class="commentaires_input" id="input-auteur" placeholder="Votre nom" required>
+                    <textarea class="commentaires_textarea" id="input-contenu" placeholder="Votre commentaire..." required></textarea>
+                    <button type="submit" class="pagination_btn">Publier</button>
+                </form>
+
+                <div class="commentaires_liste">
+                    ${getCommentaires(serie.id).map(c => `
+                        <div class="commentaire">
+                            <div class="commentaire_entete">
+                                <strong class="commentaire_auteur">${c.auteur}</strong>
+                                <span class="commentaire_date">${c.date}</span>
+                            </div>
+                            <p class="commentaire_contenu">${c.contenu}</p>
+                        </div>
+                    `).join('')}
+
+                    ${commentairesTMDB.results.slice(0, 5).map((c: any) => `
+                        <div class="commentaire commentaire--tmdb">
+                            <div class="commentaire_entete">
+                                <strong class="commentaire_auteur">${c.author}</strong>
+                                <span class="commentaire_date">${new Date(c.created_at).toLocaleDateString('fr-FR')}</span>
+                                <span class="commentaire_badge">TMDB</span>
+                            </div>
+                            <p class="commentaire_contenu">${c.content.slice(0, 500)}${c.content.length > 500 ? '...' : ''}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
         </div>
     `
+
+    document.getElementById('form-commentaire')?.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const auteur = (document.getElementById('input-auteur') as HTMLInputElement).value.trim()
+        const contenu = (document.getElementById('input-contenu') as HTMLTextAreaElement).value.trim()
+        if (auteur && contenu) {
+            ajouterCommentaire(serie.id, auteur, contenu)
+            afficherDetailSerie()
+        }
+    })
 
     document.getElementById('btn-favori')?.addEventListener('click', () => {
         if (estFavori(serie.id)) {

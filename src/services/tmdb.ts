@@ -60,3 +60,11 @@ export async function getFilmsSimilaires(id: number): Promise<any> {
 export async function getSeriesSimilaires(id: number): Promise<any> {
     return fetchTMDB(`/tv/${id}/similar?language=fr-FR&page=1`)
 }
+
+export async function getCommentairesFilm(id: number): Promise<any> {
+    return fetchTMDB(`/movie/${id}/reviews?language=fr-FR&page=1`)
+}
+
+export async function getCommentairesSerie(id: number): Promise<any> {
+    return fetchTMDB(`/tv/${id}/reviews?language=fr-FR&page=1`)
+}
