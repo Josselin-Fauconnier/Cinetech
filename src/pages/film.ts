@@ -1,6 +1,7 @@
 import { affichageHeader } from '../components/header.js'
 import { affichageFooter } from '../components/footer.js'
 import { getFilmDetail, getFilmCredits, getFilmsSimilaires } from '../services/tmdb.js'
+import { ajouterFavori, supprimerFavori, estFavori } from '../utils/favoris.js'
 import { TMDB_IMG_URL } from '../services/config.js'
 
 affichageHeader()
@@ -47,6 +48,9 @@ async function afficherDetailFilm(): Promise<void> {
                     <p class="detail_pays">Pays : ${pays}</p>
                     ${realisateur ? `<p class="detail_realisateur">Réalisateur : <strong>${realisateur.name}</strong></p>` : ''}
                     <p class="detail_resume">${film.overview || 'Aucun résumé disponible.'}</p>
+                    <button class="btn-favori ${estFavori(film.id) ? 'btn-favori--retirer' : 'btn-favori--ajouter'}" id="btn-favori">
+                      ${estFavori(film.id) ? '− Retirer des favoris' : '+ Ajouter aux favoris'}
+                      </button>
                 </div>
             </div>
 
@@ -91,7 +95,20 @@ async function afficherDetailFilm(): Promise<void> {
             ` : ''}
         </div>
     `
-
+    document.getElementById('btn-favori')?.addEventListener('click', () => {
+        if (estFavori(film.id)) {
+            supprimerFavori(film.id)
+        } else {
+            ajouterFavori({
+                id: film.id,
+                type: 'film',
+                title: film.title,
+                poster_path: film.poster_path,
+                vote_average: film.vote_average
+            })
+        }
+        afficherDetailFilm()
+    })
 }
 
 afficherDetailFilm()

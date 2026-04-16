@@ -58,5 +58,5 @@ export async function getFilmsSimilaires(id: number): Promise<any> {
 }
 
 export async function getSeriesSimilaires(id: number): Promise<any> {
-    return fetchTMDB(`/movie/${id}/similar?language=fr-FR&page=1`)
+    return fetchTMDB(`/tv/${id}/similar?language=fr-FR&page=1`)
 }

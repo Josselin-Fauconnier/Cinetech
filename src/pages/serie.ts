@@ -1,6 +1,7 @@
 import { affichageHeader } from '../components/header.js'
 import { affichageFooter } from '../components/footer.js'
 import { getSerieDetail, getSerieCredits, getSeriesSimilaires } from '../services/tmdb.js'
+import { ajouterFavori, supprimerFavori, estFavori } from '../utils/favoris.js'
 import { TMDB_IMG_URL } from '../services/config.js'
 
 affichageHeader()
@@ -45,6 +46,9 @@ async function afficherDetailSerie(): Promise<void> {
                     <p class="detail_genres">${genres}</p>
                     <p class="detail_pays">Pays : ${pays}</p>
                     <p class="detail_resume">${serie.overview || 'Aucun résumé disponible.'}</p>
+                    <button class="btn-favori ${estFavori(serie.id) ? 'btn-favori--retirer' : 'btn-favori--ajouter'}" id="btn-favori">
+                        ${estFavori(serie.id) ? '− Retirer des favoris' : '+ Ajouter aux favoris'}
+                    </button>
                 </div>
             </div>
 
@@ -89,6 +93,21 @@ async function afficherDetailSerie(): Promise<void> {
             ` : ''}
         </div>
     `
+
+    document.getElementById('btn-favori')?.addEventListener('click', () => {
+        if (estFavori(serie.id)) {
+            supprimerFavori(serie.id)
+        } else {
+            ajouterFavori({
+                id: serie.id,
+                type: 'serie',
+                title: serie.name,
+                poster_path: serie.poster_path,
+                vote_average: serie.vote_average
+            })
+        }
+        afficherDetailSerie()
+    })
 }
 
 afficherDetailSerie()

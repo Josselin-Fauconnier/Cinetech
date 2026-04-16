@@ -459,6 +459,50 @@ footer {
     color: var(--accent);
 }
 
+/* ───── BOUTON FAVORI ───── */
+
+.btn-favori {
+    background: none;
+    border: 2px solid var(--texte-secondaire);
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.btn-favori--ajouter {
+    color: #27ae60;
+    border-color: #27ae60;
+}
+
+.btn-favori--ajouter:hover {
+    background-color: rgba(39, 174, 96, 0.1);
+}
+
+.btn-favori--retirer {
+    color: #c0392b;
+    border-color: #c0392b;
+}
+
+.btn-favori--retirer:hover {
+    background-color: rgba(192, 57, 43, 0.1);
+}
+
+
+.favoris-vide {
+    color: var(--texte-secondaire);
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1rem;
+}
+
+.btn-suppr-favori {
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+}
+
+
 @media (max-width: 768px) {
     .nav_burger {
         display: flex;
