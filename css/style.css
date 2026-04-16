@@ -224,7 +224,8 @@ header {
     position: absolute;
     inset: 0;
     background-color: rgba(80, 0, 120, 0.35);
-    transition: opacity 0.3s;
+    transition: opacity 0.5s;
+    pointer-events: none;
 }
 
 .carte:hover::after {
@@ -322,6 +323,110 @@ header {
 
 
 
+/* ───── PAGE DÉTAIL ───── */
+
+.detail {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+.detail_haut {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 48px;
+}
+
+.detail_poster {
+    width: 300px;
+    min-width: 300px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.detail_infos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail_titre {
+    font-size: 2rem;
+    color: var(--texte-principal);
+}
+
+.detail_meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    color: var(--accent);
+    font-size: 0.95rem;
+}
+
+.detail_meta img {
+    vertical-align: middle;
+}
+
+.detail_genres {
+    color: var(--texte-secondaire);
+    font-size: 0.95rem;
+}
+
+.detail_pays {
+    color: var(--texte-secondaire);
+    font-size: 0.95rem;
+}
+
+.detail_realisateur {
+    color: var(--texte-principal);
+    font-size: 0.95rem;
+}
+
+.detail_resume {
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+    max-width: 700px;
+}
+
+/* ───── ACTEURS ───── */
+
+.detail_acteurs-titre {
+    font-size: 1.3rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+}
+
+.detail_acteurs-grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 16px;
+}
+
+.acteur {
+    text-align: center;
+}
+
+.acteur_photo {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 6px;
+    background-color: var(--fond-secondaire);
+}
+
+.acteur_nom {
+    font-size: 0.8rem;
+    margin-top: 6px;
+    color: var(--texte-principal);
+}
+
+.acteur_role {
+    font-size: 0.75rem;
+    color: var(--texte-secondaire);
+}
+
 
 footer {
     background-color: var(--fond-secondaire);
@@ -390,6 +495,19 @@ footer {
     .carte {
         min-width: 130px;
         scroll-snap-align: start;
+    }
+
+    .detail_haut {
+        flex-direction: column;
+    }
+
+    .detail_poster {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .detail_titre {
+        font-size: 1.5rem;
     }
 
     .footer_liens {
