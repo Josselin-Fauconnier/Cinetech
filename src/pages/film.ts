@@ -1,6 +1,6 @@
 import { affichageHeader } from '../components/header.js'
 import { affichageFooter } from '../components/footer.js'
-import { getFilmDetail, getFilmCredits } from '../services/tmdb.js'
+import { getFilmDetail, getFilmCredits, getFilmsSimilaires } from '../services/tmdb.js'
 import { TMDB_IMG_URL } from '../services/config.js'
 
 affichageHeader()
@@ -12,9 +12,10 @@ async function afficherDetailFilm(): Promise<void> {
 
     if(!id) return
 
-    const [film, credits] = await Promise.all([
+    const [film, credits,similaires] = await Promise.all([
         getFilmDetail(Number(id)),
-        getFilmCredits(Number(id))
+        getFilmCredits(Number(id)),
+        getFilmsSimilaires(Number(id))
     ])
 
     const realisateur = credits.crew.find((p: any)=> p.job === 'Director')
@@ -66,8 +67,30 @@ async function afficherDetailFilm(): Promise<void> {
                 </div>
             </div>
             ` : ''}
+
+            ${similaires.results.length > 0 ? `
+            <div class="detail_similaires">
+                <h2 class="detail_acteurs-titre">Films similaires</h2>
+                <div class="grille">
+                    ${similaires.results.slice(0, 5).map((f: any) => `
+                        <article class="carte">
+                            <a href="./film.html?id=${f.id}">
+                                ${f.poster_path
+                                    ? `<img src="${TMDB_IMG_URL}${f.poster_path}" alt="${f.title}" loading="lazy">`
+                                    : `<div class="carte_placeholder">Pas d'affiche</div>`
+                                }
+                                <div class="carte_infos">
+                                    <h3 class="carte_titre">${f.title}</h3>
+                                    <p class="carte_date">${f.release_date?.slice(0, 4) || 'N/A'}</p>
+                                </div>
+                            </a>
+                        </article>
+                    `).join('')}
+                </div>
+            </div>
+            ` : ''}
         </div>
-    ` 
+    `
 
 }
 

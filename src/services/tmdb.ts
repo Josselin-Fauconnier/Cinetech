@@ -51,3 +51,12 @@ export async function getSerieDetail(id: number): Promise<any> {
 export async function getSerieCredits(id: number): Promise<any> {
     return fetchTMDB(`/tv/${id}/credits?language=fr-FR`)
 }
+
+
+export async function getFilmsSimilaires(id: number): Promise<any> {
+    return fetchTMDB(`/movie/${id}/similar?language=fr-FR&page=1`)
+}
+
+export async function getSeriesSimilaires(id: number): Promise<any> {
+    return fetchTMDB(`/movie/${id}/similar?language=fr-FR&page=1`)
+}

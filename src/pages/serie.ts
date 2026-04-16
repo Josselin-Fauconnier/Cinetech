@@ -1,6 +1,6 @@
 import { affichageHeader } from '../components/header.js'
 import { affichageFooter } from '../components/footer.js'
-import { getSerieDetail, getSerieCredits } from '../services/tmdb.js'
+import { getSerieDetail, getSerieCredits, getSeriesSimilaires } from '../services/tmdb.js'
 import { TMDB_IMG_URL } from '../services/config.js'
 
 affichageHeader()
@@ -12,9 +12,10 @@ async function afficherDetailSerie(): Promise<void> {
 
     if (!id) return
 
-    const [serie, credits] = await Promise.all([
+    const [serie, credits, similaires] = await Promise.all([
         getSerieDetail(Number(id)),
-        getSerieCredits(Number(id))
+        getSerieCredits(Number(id)),
+        getSeriesSimilaires(Number(id))
     ])
 
     const acteurs = credits.cast.slice(0, 10)
@@ -60,6 +61,28 @@ async function afficherDetailSerie(): Promise<void> {
                             <p class="acteur_nom">${a.name}</p>
                             <p class="acteur_role">${a.character}</p>
                         </div>
+                    `).join('')}
+                </div>
+            </div>
+            ` : ''}
+
+            ${similaires.results.length > 0 ? `
+            <div class="detail_similaires">
+                <h2 class="detail_acteurs-titre">Séries similaires</h2>
+                <div class="grille">
+                    ${similaires.results.slice(0, 5).map((s: any) => `
+                        <article class="carte">
+                            <a href="./serie.html?id=${s.id}">
+                                ${s.poster_path
+                                    ? `<img src="${TMDB_IMG_URL}${s.poster_path}" alt="${s.name}" loading="lazy">`
+                                    : `<div class="carte_placeholder">Pas d'affiche</div>`
+                                }
+                                <div class="carte_infos">
+                                    <h3 class="carte_titre">${s.name}</h3>
+                                    <p class="carte_date">${s.first_air_date?.slice(0, 4) || 'N/A'}</p>
+                                </div>
+                            </a>
+                        </article>
                     `).join('')}
                 </div>
             </div>
