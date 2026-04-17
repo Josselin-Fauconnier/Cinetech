@@ -2,7 +2,7 @@ import { affichageHeader } from '../components/header.js'
 import { affichageFooter } from '../components/footer.js'
 import { getSerieDetail, getSerieCredits, getSeriesSimilaires, getCommentairesSerie } from '../services/tmdb.js'
 import { ajouterFavori, supprimerFavori, estFavori } from '../utils/favoris.js'
-import { getCommentaires, ajouterCommentaire } from '../utils/commentaires.js'
+import { getCommentaires, ajouterCommentaire, ajouterReponse } from '../utils/commentaires.js'
 import { TMDB_IMG_URL } from '../services/config.js'
 
 affichageHeader()
@@ -111,6 +111,22 @@ async function afficherDetailSerie(): Promise<void> {
                                 <span class="commentaire_date">${c.date}</span>
                             </div>
                             <p class="commentaire_contenu">${c.contenu}</p>
+
+                            ${(c.reponses || []).map(r => `
+                                <div class="commentaire commentaire--reponse">
+                                    <div class="commentaire_entete">
+                                        <strong class="commentaire_auteur">${r.auteur}</strong>
+                                        <span class="commentaire_date">${r.date}</span>
+                                    </div>
+                                    <p class="commentaire_contenu">${r.contenu}</p>
+                                </div>
+                            `).join('')}
+
+                            <form class="reponse_form" data-id="${c.id}">
+                                <input type="text" class="commentaires_input reponse_auteur" placeholder="Votre nom" required>
+                                <input type="text" class="commentaires_input reponse_contenu" placeholder="Répondre..." required>
+                                <button type="submit" class="btn-favori btn-favori--ajouter">Répondre</button>
+                            </form>
                         </div>
                     `).join('')}
 
@@ -128,6 +144,19 @@ async function afficherDetailSerie(): Promise<void> {
             </div>
         </div>
     `
+
+    document.querySelectorAll('.reponse_form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const id = (form as HTMLElement).dataset.id!
+            const auteur = (form.querySelector('.reponse_auteur') as HTMLInputElement).value.trim()
+            const contenu = (form.querySelector('.reponse_contenu') as HTMLInputElement).value.trim()
+            if (auteur && contenu) {
+                ajouterReponse(id, auteur, contenu)
+                afficherDetailSerie()
+            }
+        })
+    })
 
     document.getElementById('form-commentaire')?.addEventListener('submit', (e) => {
         e.preventDefault()

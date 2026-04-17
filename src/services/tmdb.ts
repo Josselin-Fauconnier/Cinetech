@@ -68,3 +68,8 @@ export async function getCommentairesFilm(id: number): Promise<any> {
 export async function getCommentairesSerie(id: number): Promise<any> {
     return fetchTMDB(`/tv/${id}/reviews?language=fr-FR&page=1`)
 }
+
+
+export async function rechercherFilmsetSeries(query: string): Promise<any> {
+    return fetchTMDB(`/search/multi?language=fr-FR&query=${encodeURIComponent(query)}&page=1`)
+}

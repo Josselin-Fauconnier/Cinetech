@@ -502,6 +502,114 @@ footer {
     border-radius: 0 0 8px 8px;
 }
 
+.commentaire--reponse {
+    margin-left: 24px;
+    border-left: 2px solid var(--texte-secondaire);
+    margin-top: 8px;
+}
+
+/* ───── COMMENTAIRES ───── */
+
+.commentaires {
+    margin-top: 48px;
+}
+
+.commentaires_form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+    margin-bottom: 32px;
+}
+
+.commentaires_input,
+.commentaires_textarea {
+    background-color: var(--fond-secondaire);
+    color: var(--texte-principal);
+    border: 1px solid var(--texte-secondaire);
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    outline: none;
+    width: 100%;
+}
+
+.commentaires_input:focus,
+.commentaires_textarea:focus {
+    border-color: var(--accent);
+}
+
+.commentaires_textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.commentaires_liste {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+}
+
+.commentaire {
+    background-color: var(--fond-secondaire);
+    border-radius: 6px;
+    padding: 14px 16px;
+}
+
+.commentaire--tmdb {
+    border-left: 3px solid var(--accent);
+}
+
+.commentaire--reponse {
+    margin-left: 24px;
+    border-left: 2px solid var(--texte-secondaire);
+    margin-top: 8px;
+}
+
+.commentaire_entete {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.commentaire_auteur {
+    color: var(--texte-principal);
+}
+
+.commentaire_date {
+    color: var(--texte-secondaire);
+    font-size: 0.8rem;
+}
+
+.commentaire_badge {
+    background-color: var(--accent);
+    color: var(--fond-principal);
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.commentaire_contenu {
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.reponse_form {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.reponse_form .commentaires_input {
+    flex: 1;
+    min-width: 120px;
+}
+
 
 @media (max-width: 768px) {
     .nav_burger {

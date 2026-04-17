@@ -43,7 +43,7 @@ export function affichageHeader(): void {
         </nav>
     `
 
-    // ── Burger ──
+   
     const burger = document.getElementById('burger')
     const navLiens = header.querySelector('.nav_liens')
 
@@ -52,7 +52,7 @@ export function affichageHeader(): void {
         burger.setAttribute('aria-expanded', ouvert ? 'true' : 'false')
     })
 
-    // ── Thème ──
+    
     const boutonTheme = document.getElementById('theme-toggle') as HTMLButtonElement | null
     const iconeTheme = document.getElementById('theme-icon') as HTMLElement | null
     if (!boutonTheme || !iconeTheme) return
