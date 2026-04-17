@@ -1,3 +1,5 @@
+import { rechercherFilmsetSeries } from '../services/tmdb.js'
+
 export function affichageHeader(): void {
     const header = document.getElementById('header')
     if (!header) return
@@ -53,6 +55,63 @@ export function affichageHeader(): void {
     })
 
     
+    const input = document.getElementById('recherche') as HTMLInputElement
+    const autocomplete = document.getElementById('autocomplete') as HTMLUListElement
+    const barre = document.getElementById('form-recherche') as HTMLFormElement
+
+    let timer: ReturnType<typeof setTimeout>
+
+    input?.addEventListener('input', () => {
+        clearTimeout(timer)
+        const query = input.value.trim()
+
+        if (query.length < 3) {
+            autocomplete.innerHTML = ''
+            autocomplete.style.display = 'none'
+            return
+        }
+
+        timer = setTimeout(async () => {
+            const data = await rechercherFilmsetSeries(query)
+            const resultats = data.results.slice(0, 5)
+
+            if (resultats.length === 0) {
+                autocomplete.style.display = 'none'
+                return
+            }
+
+            autocomplete.innerHTML = resultats.map((r: any) => {
+                const titre = r.title || r.name
+                const type = r.media_type === 'movie' ? 'film' : 'serie'
+                return `<li class="nav_autocomplete-item" data-id="${r.id}" data-type="${type}">${titre}</li>`
+            }).join('')
+
+            autocomplete.style.display = 'block'
+        }, 300)
+    })
+
+    autocomplete?.addEventListener('click', (e) => {
+        const item = (e.target as HTMLElement).closest('.nav_autocomplete-item') as HTMLElement
+        if (!item) return
+        const id = item.dataset.id
+        const type = item.dataset.type
+        window.location.href = `./${type}.html?id=${id}`
+        autocomplete.style.display = 'none'
+        input.value = ''
+    })
+
+    document.addEventListener('click', (e) => {
+        if (!barre.contains(e.target as Node)) {
+            autocomplete.style.display = 'none'
+        }
+    })
+
+    barre?.addEventListener('submit', (e) => {
+        e.preventDefault()
+    })
+
+
+
     const boutonTheme = document.getElementById('theme-toggle') as HTMLButtonElement | null
     const iconeTheme = document.getElementById('theme-icon') as HTMLElement | null
     if (!boutonTheme || !iconeTheme) return

@@ -157,6 +157,19 @@ header {
     display: none;
 }
 
+.nav_autocomplete-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--texte-principal);
+    transition: background-color 0.15s;
+}
+
+.nav_autocomplete-item:hover {
+    background-color: var(--fond-principal);
+    color: var(--accent);
+}
+
 .nav_burger {
     display: none;
     flex-direction: column;
@@ -176,7 +189,7 @@ header {
 }
 
 
-/* ───── PAGE ACCUEIL ───── */
+
 
 .section-films {
     max-width: 1200px;
@@ -196,7 +209,7 @@ header {
 }
 
 
-/* ───── GRILLE ───── */
+
 
 .grille {
     display: grid;
@@ -204,7 +217,7 @@ header {
     gap: 20px;
 }
 
-/* ───── CARTE FILM ───── */
+
 
 .carte {
     background-color: var(--fond-secondaire);
@@ -284,7 +297,6 @@ header {
 }
 
 
-/* ───── PAGINATION ───── */
 
 .pagination {
     display: flex;
@@ -322,8 +334,6 @@ header {
 }
 
 
-
-/* ───── PAGE DÉTAIL ───── */
 
 .detail {
     max-width: 1200px;
@@ -388,7 +398,6 @@ header {
     max-width: 700px;
 }
 
-/* ───── ACTEURS ───── */
 
 .detail_acteurs-titre {
     font-size: 1.3rem;
@@ -459,7 +468,7 @@ footer {
     color: var(--accent);
 }
 
-/* ───── BOUTON FAVORI ───── */
+
 
 .btn-favori {
     background: none;
@@ -508,7 +517,7 @@ footer {
     margin-top: 8px;
 }
 
-/* ───── COMMENTAIRES ───── */
+
 
 .commentaires {
     margin-top: 48px;
