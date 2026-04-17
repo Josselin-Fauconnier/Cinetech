@@ -1,12 +1,7 @@
-import { TMDB_TOKEN, TMDB_BASE_URL } from './config.js'
+import { TMDB_PROXY_URL } from './config.js'
 
 async function fetchTMDB(endpoint: string): Promise<any> {
-    const response = await fetch(`${TMDB_BASE_URL}${endpoint}`, {
-        headers: {
-            Authorization: `Bearer ${TMDB_TOKEN}`,
-            'Content-Type': 'application/json'
-        }
-    })
+    const response = await fetch(`${TMDB_PROXY_URL}?endpoint=${encodeURIComponent(endpoint)}`)
 
     if (!response.ok) {
         throw new Error(`Erreur TMDB : ${response.status}`)
