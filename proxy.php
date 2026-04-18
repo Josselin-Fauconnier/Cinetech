@@ -5,9 +5,9 @@ $token = $env['TMDB_TOKEN'] ?? '';
 
 if (empty($token)) {
     http_response_code(500);
-    echo json_encode(['error' => 'Token TMDB manquant dans .env']);
+    echo json_encode(['error' => ' le Token TMDB est  manquant ']);
     exit;
-}
+}   
 
 define('TMDB_BASE_URL', 'https://api.themoviedb.org/3');
 
@@ -18,7 +18,7 @@ $endpoint = $_GET['endpoint'] ?? '';
 
 if (empty($endpoint) || $endpoint[0] !== '/') {
     http_response_code(400);
-    echo json_encode(['error' => 'Endpoint invalide']);
+    echo json_encode(['error' => ' l\'Endpoint  est invalide']);
     exit;
 }
 
@@ -35,7 +35,7 @@ $response = file_get_contents($url, false, $context);
 
 if ($response === false) {
     http_response_code(502);
-    echo json_encode(['error' => 'Erreur lors de la communication avec TMDB']);
+    echo json_encode(['error' => ' Erreur lors de la communication avec TMDB']);
     exit;
 }
 

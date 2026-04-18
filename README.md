@@ -1,5 +1,48 @@
 # Cinetech
 
+ Exercice dont le but est de faire un  site  web de catalogue de films et documentaires , avec système de favoris et de commentaires.
+
+## Technologies
+
+- TypeScript (compilé vers `dist/`)
+- API TMDB (via proxy PHP)
+- HTML / CSS vanilla
+
+## Structure du projet
+
+```
+src/
+├── pages/        # home, films, series, film, serie, favoris
+├── components/   # header, footer, carteFilm, carteSerie
+├── services/     # tmdb.ts (appels API), config.ts
+├── utils/        # favoris.ts, commentaires.ts
+└── types/        # movie, serie, pays, avis, distribution
+proxy.php          # proxy TMDB pour cacher le token API
+```
+
+
+## Installation
+
+1. Cloner le repo et le mettre dans un serveur local PHP (ex : htdocs, www…)
+2. Créer un fichier `.env` à la racine :
+   ```
+   TMDB_TOKEN=clé_api
+   ```
+3. Créer `src/services/config.ts` :
+   ```ts
+   export const TMDB_PROXY_URL = './proxy.php'
+   export const TMDB_IMG_URL = 'https://image.tmdb.org/t/p/w500'
+   ```
+
+5. Accéder au projet via le serveur 
+
+## Fonctionnalités
+
+- Catalogue films et séries (données TMDB)
+- Pages détail avec casting, notes et description
+- Système de favoris (localStorage)
+- Commentaires par film / documentaire
+
 ## Crédits
 
 ### Logo
