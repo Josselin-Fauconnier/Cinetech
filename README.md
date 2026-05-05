@@ -23,18 +23,30 @@ proxy.php          # proxy TMDB pour cacher le token API
 
 ## Installation
 
-1. Cloner le repo et le mettre dans un serveur local PHP (ex : htdocs, www…)
-2. Créer un fichier `.env` à la racine :
+1. Cloner le repo et le mettre dans un serveur local PHP (ex : Laragon `www/`, WAMP `www/`, MAMP `htdocs/`…)
+
+2. Créer un fichier `.env` à la racine du projet :
    ```
-   TMDB_TOKEN=clé_api
+   TMDB_TOKEN=votre_clé_api_tmdb
    ```
+
 3. Créer `src/services/config.ts` :
    ```ts
    export const TMDB_PROXY_URL = './proxy.php'
    export const TMDB_IMG_URL = 'https://image.tmdb.org/t/p/w500'
    ```
 
-5. Accéder au projet via le serveur 
+4. Installer les dépendances et compiler le TypeScript :
+   ```bash
+   npm install
+   npm run build
+   ```
+   > Ca va  génèrer le dossier `dist/` contenant les fichiers JavaScript utilisés par les pages HTML.
+  
+
+5. Accéder au projet via le serveur local (ex : `http://localhost/Cinetech/`)
+
+```
 
 ## Fonctionnalités
 
