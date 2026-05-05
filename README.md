@@ -23,7 +23,7 @@ proxy.php          # proxy TMDB pour cacher le token API
 
 ## Installation
 
-1. Cloner le repo et le mettre dans un serveur local PHP (ex : Laragon `www/`, WAMP `www/`, MAMP `htdocs/`…)
+1. Cloner le repo et le mettre dans un serveur local PHP (ex : Laragon `www/``…)
 
 2. Créer un fichier `.env` à la racine du projet :
    ```
