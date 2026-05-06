@@ -4,6 +4,7 @@ import { getSerieDetail, getSerieCredits, getSeriesSimilaires, getCommentairesSe
 import { ajouterFavori, supprimerFavori, estFavori } from '../utils/favoris.js'
 import { getCommentaires, ajouterCommentaire, ajouterReponse } from '../utils/commentaires.js'
 import { TMDB_IMG_URL } from '../services/config.js'
+import { escapeHTML } from '../utils/escapeHTML.js'
 
 affichageHeader()
 affichageFooter()
@@ -27,7 +28,7 @@ async function afficherDetailSerie(): Promise<void> {
         ? `${TMDB_IMG_URL}${serie.poster_path}`
         : ''
 
-    const genres = serie.genres.map((g: any) => g.name).join(', ')
+    const genres = serie.genres.map((g: any) => escapeHTML(g.name)).join(', ')
     const pays = serie.origin_country?.join(', ') || 'N/A'
     const saisons = serie.number_of_seasons ? `${serie.number_of_seasons} saison(s)` : 'N/A'
 
@@ -37,17 +38,17 @@ async function afficherDetailSerie(): Promise<void> {
     main.innerHTML = `
         <div class="detail">
             <div class="detail_haut">
-                <img class="detail_poster" src="${poster}" alt="${serie.name}">
+                <img class="detail_poster" src="${poster}" alt="${escapeHTML(serie.name)}">
                 <div class="detail_infos">
-                    <h1 class="detail_titre">${serie.name}</h1>
+                    <h1 class="detail_titre">${escapeHTML(serie.name)}</h1>
                     <div class="detail_meta">
                         <span><img src="./assets/notation.svg" alt="" width="16" height="16"> ${serie.vote_average.toFixed(1)}</span>
-                        <span>${serie.first_air_date?.slice(0, 4) || 'N/A'}</span>
+                        <span>${escapeHTML(serie.first_air_date?.slice(0, 4) || 'N/A')}</span>
                         <span>${saisons}</span>
                     </div>
                     <p class="detail_genres">${genres}</p>
                     <p class="detail_pays">Pays : ${pays}</p>
-                    <p class="detail_resume">${serie.overview || 'Aucun résumé disponible.'}</p>
+                    <p class="detail_resume">${escapeHTML(serie.overview || 'Aucun résumé disponible.')}</p>
                     <button class="btn-favori ${estFavori(serie.id) ? 'btn-favori--retirer' : 'btn-favori--ajouter'}" id="btn-favori">
                         ${estFavori(serie.id) ? '− Retirer des favoris' : '+ Ajouter aux favoris'}
                     </button>
@@ -61,11 +62,11 @@ async function afficherDetailSerie(): Promise<void> {
                     ${acteurs.map((a: any) => `
                         <div class="acteur">
                             ${a.profile_path
-                                ? `<img class="acteur_photo" src="${TMDB_IMG_URL}${a.profile_path}" alt="${a.name}">`
+                                ? `<img class="acteur_photo" src="${TMDB_IMG_URL}${a.profile_path}" alt="${escapeHTML(a.name)}">`
                                 : `<div class="acteur_photo carte_placeholder">Pas de photo</div>`
                             }
-                            <p class="acteur_nom">${a.name}</p>
-                            <p class="acteur_role">${a.character}</p>
+                            <p class="acteur_nom">${escapeHTML(a.name)}</p>
+                            <p class="acteur_role">${escapeHTML(a.character)}</p>
                         </div>
                     `).join('')}
                 </div>
@@ -80,12 +81,12 @@ async function afficherDetailSerie(): Promise<void> {
                         <article class="carte">
                             <a href="./serie.html?id=${s.id}">
                                 ${s.poster_path
-                                    ? `<img src="${TMDB_IMG_URL}${s.poster_path}" alt="${s.name}" loading="lazy">`
+                                    ? `<img src="${TMDB_IMG_URL}${s.poster_path}" alt="${escapeHTML(s.name)}" loading="lazy">`
                                     : `<div class="carte_placeholder">Pas d'affiche</div>`
                                 }
                                 <div class="carte_infos">
-                                    <h3 class="carte_titre">${s.name}</h3>
-                                    <p class="carte_date">${s.first_air_date?.slice(0, 4) || 'N/A'}</p>
+                                    <h3 class="carte_titre">${escapeHTML(s.name)}</h3>
+                                    <p class="carte_date">${escapeHTML(s.first_air_date?.slice(0, 4) || 'N/A')}</p>
                                 </div>
                             </a>
                         </article>
@@ -107,18 +108,18 @@ async function afficherDetailSerie(): Promise<void> {
                     ${getCommentaires(serie.id).map(c => `
                         <div class="commentaire">
                             <div class="commentaire_entete">
-                                <strong class="commentaire_auteur">${c.auteur}</strong>
-                                <span class="commentaire_date">${c.date}</span>
+                                <strong class="commentaire_auteur">${escapeHTML(c.auteur)}</strong>
+                                <span class="commentaire_date">${escapeHTML(c.date)}</span>
                             </div>
-                            <p class="commentaire_contenu">${c.contenu}</p>
+                            <p class="commentaire_contenu">${escapeHTML(c.contenu)}</p>
 
                             ${(c.reponses || []).map(r => `
                                 <div class="commentaire commentaire--reponse">
                                     <div class="commentaire_entete">
-                                        <strong class="commentaire_auteur">${r.auteur}</strong>
-                                        <span class="commentaire_date">${r.date}</span>
+                                        <strong class="commentaire_auteur">${escapeHTML(r.auteur)}</strong>
+                                        <span class="commentaire_date">${escapeHTML(r.date)}</span>
                                     </div>
-                                    <p class="commentaire_contenu">${r.contenu}</p>
+                                    <p class="commentaire_contenu">${escapeHTML(r.contenu)}</p>
                                 </div>
                             `).join('')}
 
@@ -133,11 +134,11 @@ async function afficherDetailSerie(): Promise<void> {
                     ${commentairesTMDB.results.slice(0, 5).map((c: any) => `
                         <div class="commentaire commentaire--tmdb">
                             <div class="commentaire_entete">
-                                <strong class="commentaire_auteur">${c.author}</strong>
+                                <strong class="commentaire_auteur">${escapeHTML(c.author)}</strong>
                                 <span class="commentaire_date">${new Date(c.created_at).toLocaleDateString('fr-FR')}</span>
                                 <span class="commentaire_badge">TMDB</span>
                             </div>
-                            <p class="commentaire_contenu">${c.content.slice(0, 500)}${c.content.length > 500 ? '...' : ''}</p>
+                            <p class="commentaire_contenu">${escapeHTML(c.content.slice(0, 500))}${c.content.length > 500 ? '...' : ''}</p>
                         </div>
                     `).join('')}
                 </div>

@@ -4,6 +4,7 @@ import { getFilmDetail, getFilmCredits, getFilmsSimilaires, getCommentairesFilm 
 import { ajouterFavori, supprimerFavori, estFavori } from '../utils/favoris.js'
 import { getCommentaires, ajouterCommentaire, ajouterReponse } from '../utils/commentaires.js'
 import { TMDB_IMG_URL } from '../services/config.js'
+import { escapeHTML } from '../utils/escapeHTML.js'
 
 affichageHeader()
 affichageFooter()
@@ -28,8 +29,8 @@ async function afficherDetailFilm(): Promise<void> {
     ? `${TMDB_IMG_URL}${film.poster_path}`
         : ''
 
-    const genres = film.genres.map((g: any)=> g.name).join('')
-    const pays = film.production_countries.map((p: any) => p.name).join(', ')
+    const genres = film.genres.map((g: any)=> escapeHTML(g.name)).join('')
+    const pays = film.production_countries.map((p: any) => escapeHTML(p.name)).join(', ')
     const duree = film.runtime ? `${film.runtime} min` : 'N/A'
 
     const main = document.getElementById('main')
@@ -38,18 +39,18 @@ async function afficherDetailFilm(): Promise<void> {
      main.innerHTML = `
         <div class="detail">
             <div class="detail_haut">
-                <img class="detail_poster" src="${poster}" alt="${film.title}">
+                <img class="detail_poster" src="${poster}" alt="${escapeHTML(film.title)}">
                 <div class="detail_infos">
-                    <h1 class="detail_titre">${film.title}</h1>
+                    <h1 class="detail_titre">${escapeHTML(film.title)}</h1>
                     <div class="detail_meta">
                         <span><img src="./assets/notation.svg" alt="" width="16" height="16"> ${film.vote_average.toFixed(1)}</span>
-                        <span>${film.release_date.slice(0, 4)}</span>
+                        <span>${escapeHTML(film.release_date.slice(0, 4))}</span>
                         <span>${duree}</span>
                     </div>
                     <p class="detail_genres">${genres}</p>
                     <p class="detail_pays">Pays : ${pays}</p>
-                    ${realisateur ? `<p class="detail_realisateur">Réalisateur : <strong>${realisateur.name}</strong></p>` : ''}
-                    <p class="detail_resume">${film.overview || 'Aucun résumé disponible.'}</p>
+                    ${realisateur ? `<p class="detail_realisateur">Réalisateur : <strong>${escapeHTML(realisateur.name)}</strong></p>` : ''}
+                    <p class="detail_resume">${escapeHTML(film.overview || 'Aucun résumé disponible.')}</p>
                     <button class="btn-favori ${estFavori(film.id) ? 'btn-favori--retirer' : 'btn-favori--ajouter'}" id="btn-favori">
                       ${estFavori(film.id) ? '− Retirer des favoris' : '+ Ajouter aux favoris'}
                       </button>
@@ -62,12 +63,12 @@ async function afficherDetailFilm(): Promise<void> {
                 <div class="detail_acteurs-grille">
                     ${acteurs.map((a: any) => `
                         <div class="acteur">
-                            ${a.profile_path 
-                             ? `<img class="acteur_photo" src="${TMDB_IMG_URL}${a.profile_path}" alt="${a.name}">`
+                            ${a.profile_path
+                             ? `<img class="acteur_photo" src="${TMDB_IMG_URL}${a.profile_path}" alt="${escapeHTML(a.name)}">`
                            : `<div class="acteur_photo carte_placeholder">Pas de photo</div>`
                             }
-                            <p class="acteur_nom">${a.name}</p>
-                            <p class="acteur_role">${a.character}</p>
+                            <p class="acteur_nom">${escapeHTML(a.name)}</p>
+                            <p class="acteur_role">${escapeHTML(a.character)}</p>
                         </div>
                     `).join('')}
                 </div>
@@ -82,12 +83,12 @@ async function afficherDetailFilm(): Promise<void> {
                         <article class="carte">
                             <a href="./film.html?id=${f.id}">
                                 ${f.poster_path
-                                    ? `<img src="${TMDB_IMG_URL}${f.poster_path}" alt="${f.title}" loading="lazy">`
+                                    ? `<img src="${TMDB_IMG_URL}${f.poster_path}" alt="${escapeHTML(f.title)}" loading="lazy">`
                                     : `<div class="carte_placeholder">Pas d'affiche</div>`
                                 }
                                 <div class="carte_infos">
-                                    <h3 class="carte_titre">${f.title}</h3>
-                                    <p class="carte_date">${f.release_date?.slice(0, 4) || 'N/A'}</p>
+                                    <h3 class="carte_titre">${escapeHTML(f.title)}</h3>
+                                    <p class="carte_date">${escapeHTML(f.release_date?.slice(0, 4) || 'N/A')}</p>
                                 </div>
                             </a>
                         </article>
@@ -109,18 +110,18 @@ async function afficherDetailFilm(): Promise<void> {
                     ${getCommentaires(film.id).map(c => `
                         <div class="commentaire">
                             <div class="commentaire_entete">
-                                <strong class="commentaire_auteur">${c.auteur}</strong>
-                                <span class="commentaire_date">${c.date}</span>
+                                <strong class="commentaire_auteur">${escapeHTML(c.auteur)}</strong>
+                                <span class="commentaire_date">${escapeHTML(c.date)}</span>
                             </div>
-                            <p class="commentaire_contenu">${c.contenu}</p>
+                            <p class="commentaire_contenu">${escapeHTML(c.contenu)}</p>
 
                             ${(c.reponses || []).map(r => `
                                 <div class="commentaire commentaire--reponse">
                                     <div class="commentaire_entete">
-                                        <strong class="commentaire_auteur">${r.auteur}</strong>
-                                        <span class="commentaire_date">${r.date}</span>
+                                        <strong class="commentaire_auteur">${escapeHTML(r.auteur)}</strong>
+                                        <span class="commentaire_date">${escapeHTML(r.date)}</span>
                                     </div>
-                                    <p class="commentaire_contenu">${r.contenu}</p>
+                                    <p class="commentaire_contenu">${escapeHTML(r.contenu)}</p>
                                 </div>
                             `).join('')}
 

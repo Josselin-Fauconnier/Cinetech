@@ -1,4 +1,5 @@
 import { rechercherFilmsetSeries } from '../services/tmdb.js'
+import { escapeHTML } from '../utils/escapeHTML.js'
 
 export function affichageHeader(): void {
     const header = document.getElementById('header')
@@ -83,7 +84,7 @@ export function affichageHeader(): void {
             autocomplete.innerHTML = resultats.map((r: any) => {
                 const titre = r.title || r.name
                 const type = r.media_type === 'movie' ? 'film' : 'serie'
-                return `<li class="nav_autocomplete-item" data-id="${r.id}" data-type="${type}">${titre}</li>`
+                return `<li class="nav_autocomplete-item" data-id="${r.id}" data-type="${type}">${escapeHTML(titre)}</li>`
             }).join('')
 
             autocomplete.style.display = 'block'

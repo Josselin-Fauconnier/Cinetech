@@ -2,6 +2,7 @@ import { affichageHeader } from '../components/header.js'
 import { affichageFooter } from '../components/footer.js'
 import { getFavoris, supprimerFavori } from '../utils/favoris.js'
 import { TMDB_IMG_URL } from '../services/config.js'
+import { escapeHTML } from '../utils/escapeHTML.js'
 
 affichageHeader()
 affichageFooter()
@@ -11,11 +12,11 @@ function creerCartesFavoris(items: ReturnType<typeof getFavoris>): string {
         <article class="carte">
             <a href="./${item.type === 'film' ? 'film' : 'serie'}.html?id=${item.id}">
                 ${item.poster_path
-                    ? `<img src="${TMDB_IMG_URL}${item.poster_path}" alt="${item.title}" loading="lazy">`
+                    ? `<img src="${TMDB_IMG_URL}${item.poster_path}" alt="${escapeHTML(item.title)}" loading="lazy">`
                     : `<div class="carte_placeholder">Pas d'affiche</div>`
                 }
                 <div class="carte_infos">
-                    <h3 class="carte_titre">${item.title}</h3>
+                    <h3 class="carte_titre">${escapeHTML(item.title)}</h3>
                     <p class="carte_note">
                         <img src="./assets/notation.svg" alt="" width="16" height="16"> ${item.vote_average.toFixed(1)}
                     </p>
