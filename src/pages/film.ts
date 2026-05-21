@@ -15,12 +15,23 @@ async function afficherDetailFilm(): Promise<void> {
 
     if(!id) return
 
-    const [film, credits, similaires, commentairesTMDB] = await Promise.all([
-        getFilmDetail(Number(id)),
-        getFilmCredits(Number(id)),
-        getFilmsSimilaires(Number(id)),
-        getCommentairesFilm(Number(id))
-    ])
+    const main = document.getElementById('main')
+    if(!main) return
+
+    let film: any, credits: any, similaires: any, commentairesTMDB: any
+
+    try {
+        ;[film, credits, similaires, commentairesTMDB] = await Promise.all([
+            getFilmDetail(Number(id)),
+            getFilmCredits(Number(id)),
+            getFilmsSimilaires(Number(id)),
+            getCommentairesFilm(Number(id))
+        ])
+    } catch (error) {
+        console.error(error)
+        main.innerHTML = `<p class="erreur">Une erreur est survenue lors du chargement du film. Veuillez réessayer.</p>`
+        return
+    }
 
     const realisateur = credits.crew.find((p: any)=> p.job === 'Director')
     const acteurs = credits.cast.slice(0,10)
@@ -32,9 +43,6 @@ async function afficherDetailFilm(): Promise<void> {
     const genres = film.genres.map((g: any)=> escapeHTML(g.name)).join('')
     const pays = film.production_countries.map((p: any) => escapeHTML(p.name)).join(', ')
     const duree = film.runtime ? `${film.runtime} min` : 'N/A'
-
-    const main = document.getElementById('main')
-    if(!main) return
 
      main.innerHTML = `
         <div class="detail">
